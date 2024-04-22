@@ -1,4 +1,5 @@
-啟動服務 (須至虛擬conda env中): python manage.py runserver
+啟動服務 (須至虛擬conda env中): 
+python manage.py runserver 0.0.0.0:8080
 
 更新model (須至虛擬conda env中): 
 第一步: python manage.py makemigrations 
