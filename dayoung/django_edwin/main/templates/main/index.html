@@ -1,7 +1,54 @@
-{% for item in item_list %}
-    <ul>
-        <li>
-            <a href="">{{ item.machine_code }}</a>
-        </li>
-    </ul>
-{% endfor %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Machine Code</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.2.3-dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.2.3-dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <br>
+    <div class="container">
+        <div class="row align-items-start">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mx-3">
+                    <a class="btn btn-danger" aria-current="page" href="{% url 'dayoung:add' %}">Add</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="container text-center">
+        <div class="row align-items-start">
+            {% for x in range_list %}
+                <div class="col">
+                    <ul class="list-group">
+                        {% for item in item_list %}
+                            {% if item.machine_code|slice:"0:1" == x %}
+                                <li class="list-group-item" style="border-color: greenyellow; ">
+                                    <a class="btn btn-outline-primary" href="{% url 'dayoung:detail' machine_code=item.machine_code %}">{{ item.machine_code }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+<!-- <script>
+    // 取得當前日期
+    var today = new Date();
+
+    // 格式化當前日期為 YYYY-MM
+    var year = today.getFullYear();
+    var month = (today.getMonth() + 1).toString().padStart(2, '0'); // 月份需補零
+    var currentMonth = year + '-' + month;
+
+    // 將當前年月設定為 input 的值
+    document.getElementById('start').value = currentMonth;
+</script> -->
+</html>

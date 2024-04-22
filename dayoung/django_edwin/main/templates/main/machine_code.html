@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.6.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap-5.2.3-dist/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-5.2.3-dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <br>
+    <div class="container">
+        <div class="row align-items-start">
+            <h1>機台號碼:{{ machine_code }}</h1>
+            <ul class="nav justify-content-center">
+                
+                <li class="nav-item mx-3">
+                    <a class="btn btn-success" aria-current="page" href="{% url 'dayoung:machine_list' %}">Home</a>
+                </li>
+                <form method="get" action="{% url 'dayoung:detail' machine_code %}">
+                    {% if request.GET.start %}
+                        <input type="month" id="start" name="start" min="2020-01" value="{{ request.GET.start }}">
+                    {% else %}
+                        <input type="month" id="start" name="start" min="2020-01" value="{% now 'Y-m' %}">
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <li class="nav-item mx-3">
+                    <a class="btn btn-danger" aria-current="page" href="{% url 'dayoung:add' %}">Add</a>
+                </li>
+                <!-- <li class="nav-item mx-3">
+                    <a class="btn btn-info" aria-current="page" href="#">Update</a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="btn btn-warning" aria-disabled="true">Delete</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row align-items-start">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mx-3">
+                    <h3>當月成型箱數: {{ total_boxes }}</h3>
+                </li>
+                <li class="nav-item mx-3">
+                    <h3>當月成型數量(PCS): {{ total_amounts|floatformat:"0" }}</h3>
+                </li>
+                <li class="nav-item mx-3">
+                    <h3>當月產值: {{ total_prices }}</h3>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row align-items-start">
+            <ul class="nav justify-content-center">
+                <li class="nav-item mx-3">
+                    <h3>當月不良數量: {{ total_errors }}</h3>
+                </li>
+                <li class="nav-item mx-3">
+                    <h3>當月損耗: {{ error_percentage|floatformat:"2" }}%</h3>
+                </li>
+                <li class="nav-item mx-3">
+                    <h3>當月合理產能: {{ total_reasonable_produces|floatformat:"0" }}</h3>
+                </li>
+                <li class="nav-item mx-3">
+                    <h3>當月達成率: {{ achieve_rate|floatformat:"1" }}%</h3>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>班別</th>
+                    <th>材質</th>
+                    <th>規格</th>
+                    <th>是否加班</th>
+                    <th>成型數量</th>
+                    <th>不良率</th>
+                    <th>時數</th>
+                    <th>達成率</th>
+                    <th>開機時間合理產能</th>
+                    <th>開機時間達成率</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in machine_data_list %}
+                <tr>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.work_time }}</td>
+                    <td>{{ item.material }}</td>
+                    <td>{{ item.form_machine.item_name }}</td>
+                    <td>{{ item.form_machine.time_zone }}</td>
+                    <td>{{ item.total_amounts_produce }}</td>
+                    <td>{{ item.error_amounts_percentage }}%</td>
+                    <td>{{ item.produce_time }}</td>
+                    <td>{{ item.achieve_percentage }}%</td>
+                    <td>{{ item.reasonable_produce }}</td>
+                    <td>{{ item.reasonable_produce_percentage }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
