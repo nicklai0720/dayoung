@@ -3,3 +3,5 @@
 更新model (須至虛擬conda env中): 
 第一步: python manage.py makemigrations 
 第二步: python manage.py migrate
+
+superuser: nick, keroro123
