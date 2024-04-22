@@ -42,7 +42,7 @@ def detail(request, machine_code):
     machine_data_list = DailyReport.objects.filter(
         form_machine__machine_code=machine_code,
         date__year=year,
-        date__month=month).order_by('date')
+        date__month=month).order_by('date', 'work_time')
 
     # 檢查是否存在數據，如果沒有則重定向到另一個頁面
     if not machine_data_list.exists():
