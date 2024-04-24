@@ -1,0 +1,12 @@
+1.優先安裝Anaconda及 Git(皆需網路上下載)
+2.開啟Anaconda PowerShell Prompt
+3.需先創建一個虛擬環境conda create --name dayoung-django python=3.8
+    此步驟僅需第一次時直行，後續直接執行步驟四。
+4.繼續在Anaconda PowerShell Prompt中，輸入conda activate dayoung-django
+5.在Git CMD中，輸入cd Desktop，再輸入git clone https://github.com/nicklai0720/dayoung_project.git
+    此步驟同樣僅需要執行一次即可，主要用途是將檔案從雲端下載至桌面上
+6.回到Anaconda PowerShell Prompt中，輸入cd Desktop\dayoung_project\dayoung\django_edwin
+7.繼續在Anaconda PowerShell Prompt中輸入pip install -r requirements.txt
+8.繼續在Anaconda PowerShell Prompt中輸入python manage.py runserver 0.0.0.0:8080
+    後面的IP請依據公司內網輸入(個人電腦IP):8080(可輸入0~9999)
+9.於瀏覽器輸入此IP:8080後即顯示。
